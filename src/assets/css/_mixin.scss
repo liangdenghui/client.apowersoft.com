@@ -1,0 +1,52 @@
+@mixin retina($bg, $width){
+	$bg: quote($bg);
+
+	$ext-index : str-index($bg, '.png');
+	$retina-bg : str-slice($bg, 0, $ext-index - 1) + '@2.png)';
+	$only-image: str-length($bg) <= str-index($bg, ')');
+
+	@if ($only-image) {
+		background-image: #{$bg};
+	}
+	@else{
+		background: #{$bg};
+	}
+
+	@at-root .env-retina &{
+		background-image: #{$retina-bg};
+		background-size: #{$width}px auto;
+	}
+}
+
+
+@mixin overwrite-trangle($width: 14px, $height: 7px, $color: white){
+	.ap-trangle{
+		&.ap-align-top{
+			border-left: #{$width / 2} solid transparent;
+			border-right: #{$width / 2} solid transparent;
+			border-top: #{$height} solid $color;
+			bottom: -#{$height};
+		}
+
+		&.ap-align-bottom{
+			border-left: #{$width / 2} solid transparent;
+			border-right: #{$width / 2} solid transparent;
+			border-bottom: #{$height} solid $color;
+			top: -#{$height};
+		}
+
+		&.ap-align-left{
+			border-top: #{$width / 2} solid transparent;
+			border-bottom: #{$width / 2} solid transparent;
+			border-left: #{$height} solid $color;
+			right: -#{$height};
+		}
+
+		&.ap-align-right{
+			border-top: #{$width / 2} solid transparent;
+			border-bottom: #{$width / 2} solid transparent;
+			border-right: #{$height} solid $color;
+			left: -#{$height};
+		}
+	}
+}
